@@ -1,0 +1,6 @@
+{
+  "port": 8080,
+  "mongoUri": "mongodb+srv://anyazkhr:Mzv1EiGXn135TvpY@cluster0.eby78tu.mongodb.net/?retryWrites=true&w=majority",
+  "accessSecret": "secret key from sweater",
+  "refreshSecret": "refresh secret key from sweater"
+}
