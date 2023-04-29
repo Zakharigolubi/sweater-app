@@ -28,7 +28,7 @@ const validateSchema = yup.object().shape({
     .min(2, 'минимальная длина комментария - 2 символа')
     .max(99, 'максимальная длина поста - 99 символов')
     .matches(
-      /^[а-я0-9\s]{2,99}$/g,
+      /^[а-яё\d \n.,!?:;()\-–—«»"']{2,99}$/i,
       'поле должно содержать только строчные буквы русского алфавита'
     )
 })
@@ -93,69 +93,74 @@ export default function ProfileEdit() {
         <BootstrapDialogTitle
           id='customized-dialog-title'
           onClose={handleClose}
+          sx={{
+            backgroundColor: '#f0efeb'
+          }}
         >
           редактирование профиля
         </BootstrapDialogTitle>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent dividers>
-            <Box mb={2}>
-              <Typography mb={2} sx={{ fontWeight: 'bold' }}>
-                изменить статус:
-              </Typography>
-              <TextField
-                {...register('status')}
-                label='новый статус...'
-                variant='filled'
-                size='small'
-                fullWidth
-                helperText={errors?.status?.message}
-                error={!!errors.status}
-              />
-            </Box>
-            {error && <CustomError error={error} />}
+        <div style={{ backgroundColor: '#f0efeb' }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <DialogContent dividers>
+              <Box mb={2}>
+                <Typography mb={2} sx={{ fontWeight: 'bold' }}>
+                  изменить статус:
+                </Typography>
+                <TextField
+                  {...register('status')}
+                  label='новый статус...'
+                  variant='filled'
+                  size='small'
+                  fullWidth
+                  helperText={errors?.status?.message}
+                  error={!!errors.status}
+                />
+              </Box>
+              {error && <CustomError error={error} />}
 
-            <Typography mb={2} sx={{ fontWeight: 'bold' }}>
-              выбрать свитер:
-            </Typography>
-            <Stack direction={'row'} alignItems={'center'} flexWrap={'wrap'}>
-              {avatars.map((item) => (
-                <Box
-                  p={2}
-                  key={item}
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                  onClick={() => handleAvatarClick(item)}
-                >
-                  <img
-                    alt='avatar'
-                    src={`/img/avatars/${item}.png`}
-                    style={{
-                      width: '68px',
-                      transition: '0.3s',
-                      transform: activeAvatar === item ? 'scale(1.5)' : 'none'
+              <Typography mb={2} sx={{ fontWeight: 'bold' }}>
+                выбрать свитер:
+              </Typography>
+              <Stack direction={'row'} alignItems={'center'} flexWrap={'wrap'}>
+                {avatars.map((item) => (
+                  <Box
+                    p={2}
+                    key={item}
+                    sx={{
+                      cursor: 'pointer'
                     }}
-                  />
-                </Box>
-              ))}
-            </Stack>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              autoFocus
-              type='submit'
-              sx={{
-                textTransform: 'lowercase',
-                borderRadius: '20px',
-                padding: '5px 16px',
-                fontSize: '16px'
-              }}
-            >
-              изменить
-            </Button>
-          </DialogActions>
-        </form>
+                    onClick={() => handleAvatarClick(item)}
+                  >
+                    <img
+                      alt='avatar'
+                      src={`/img/avatars/${item}.png`}
+                      style={{
+                        width: '68px',
+                        transition: '0.3s',
+                        transform: activeAvatar === item ? 'scale(1.5)' : 'none'
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Stack>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                autoFocus
+                type='submit'
+                sx={{
+                  textTransform: 'lowercase',
+                  borderRadius: '20px',
+                  padding: '5px 16px',
+                  fontSize: '16px'
+                }}
+              >
+                изменить
+              </Button>
+            </DialogActions>
+          </form>
+        </div>
       </BootstrapDialog>
     </div>
   )
